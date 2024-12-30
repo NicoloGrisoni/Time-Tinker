@@ -1,0 +1,102 @@
+<?php
+// Configurazione API
+define('API_NINJAS_KEY', 'LA_TUA_CHIAVE_API'); // Chiave API di API Ninjas
+define('OPENAI_API_KEY', 'LA_TUA_CHIAVE_API_OPENAI'); // Chiave API di OpenAI
+
+// 1. Recupero evento storico dall'API Ninjas
+$anno = 1969; 
+$limite = 1; 
+$url_eventi = "https://api.api-ninjas.com/v1/historicalevents?year=" . $anno . "&limit=" . $limite;
+
+$ch = curl_init($url_eventi);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'X-Api-Key: ' . API_NINJAS_KEY
+));
+$risposta_eventi = curl_exec($ch);
+
+if(curl_errno($ch)) {
+    die('Errore nella richiesta eventi: ' . curl_error($ch));
+}
+
+$eventi = json_decode($risposta_eventi, true);
+curl_close($ch);
+
+if (!empty($eventi)) {
+    $evento = $eventi[0]['event']; // Primo evento
+    echo "Evento selezionato: $evento\n";
+
+    // 2. Modifica proposta dall'utente
+    $modifica = "L'allunaggio dell'Apollo 11 non avviene."; // Modifica ipotetica proposta dall'utente
+    $prompt_chatgpt = "L'evento storico è: $evento. Supponiamo che: $modifica. Genera una simulazione delle possibili conseguenze storiche.";
+
+    // Richiesta a ChatGPT per simulare conseguenze
+    $url_gpt = "https://api.openai.com/v1/completions";
+    $data_gpt = array(
+        "model" => "text-davinci-003",
+        "prompt" => $prompt_chatgpt,
+        "max_tokens" => 500,
+        "temperature" => 0.7
+    );
+
+    $ch_gpt = curl_init($url_gpt);
+    curl_setopt($ch_gpt, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch_gpt, CURLOPT_POST, true);
+    curl_setopt($ch_gpt, CURLOPT_HTTPHEADER, array(
+        'Authorization: Bearer ' . OPENAI_API_KEY,
+        'Content-Type: application/json'
+    ));
+    curl_setopt($ch_gpt, CURLOPT_POSTFIELDS, json_encode($data_gpt));
+
+    $risposta_gpt = curl_exec($ch_gpt);
+
+    if(curl_errno($ch_gpt)) {
+        die('Errore nella richiesta conseguenze: ' . curl_error($ch_gpt));
+    }
+
+    $conseguenze = json_decode($risposta_gpt, true);
+    curl_close($ch_gpt);
+
+    if (!empty($conseguenze['choices'][0]['text'])) {
+        $testo_conseguenze = $conseguenze['choices'][0]['text'];
+        echo "Conseguenze simulate: $testo_conseguenze\n";
+
+        // 3. Generare immagine basata sulle conseguenze
+        $url_image = "https://api.openai.com/v1/images/generations";
+        $data_image = array(
+            "prompt" => $testo_conseguenze, // Usa il testo delle conseguenze come prompt
+            "n" => 1,
+            "size" => "1024x1024"
+        );
+
+        $ch_img = curl_init($url_image);
+        curl_setopt($ch_img, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch_img, CURLOPT_POST, true);
+        curl_setopt($ch_img, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . OPENAI_API_KEY,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch_img, CURLOPT_POSTFIELDS, json_encode($data_image));
+
+        $risposta_img = curl_exec($ch_img);
+
+        if(curl_errno($ch_img)) {
+            die('Errore nella richiesta immagine: ' . curl_error($ch_img));
+        }
+
+        $immagine = json_decode($risposta_img, true);
+        curl_close($ch_img);
+
+        if (!empty($immagine['data'][0]['url'])) {
+            $url_immagine = $immagine['data'][0]['url'];
+            echo "Immagine generata: $url_immagine\n";
+        } else {
+            echo "Nessuna immagine generata.";
+        }
+    } else {
+        echo "Nessuna conseguenza generata.";
+    }
+} else {
+    echo "Nessun evento trovato per l'anno $anno.";
+}
+?>
