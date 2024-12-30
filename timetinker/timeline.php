@@ -19,5 +19,7 @@
 <body>
     timeline
     <a href="../login/logout.php">logout</a>
+
+    <!-- navbar di bootstrap a scomparsa con link per logout e chronology -->
 </body>
 </html>

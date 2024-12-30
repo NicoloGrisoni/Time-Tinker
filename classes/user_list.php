@@ -8,7 +8,7 @@
          * Lista degli utenti presenti
          * @var array
          */
-        public $utenti;
+        private $utenti;
 
         public function __construct($file) {
             $this->utenti = $this->getUtentiFromFile($file);
