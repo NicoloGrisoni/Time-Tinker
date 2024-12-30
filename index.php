@@ -10,7 +10,7 @@
 
 <body>
     <header>
-        <a href="#" class="logo"><img src="logo.png" id="imgLogo"></a>
+        <a href="#" class="logo"><img src="imagesHome/logo.png" id="imgLogo"></a>
         <ul>
             <li><a href="#" class="active">Home</a></li>
             <li><a href="#">Login</a></li>
@@ -18,11 +18,11 @@
         </ul>
     </header>
     <section>
-        <img src="nuvole-completo.png" id="nuvole">
-        <img src="center-mountain.png" id="montagna_centro">
+        <img src="imagesHome/nuvole-completo.png" id="nuvole">
+        <img src="imagesHome/center-mountain.png" id="montagna_centro">
         <h2 id="text">TIME TINKER</h2>
         <a href="#sec" id="btn">Explore</a>
-        <img src="side-mountain.png" id="montagna_lato">
+        <img src="imagesHome/side-mountain.png" id="montagna_lato">
     </section>
     <div class="sec" id="sec">
         <h2>TIME TINKER</h2>
