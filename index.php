@@ -13,8 +13,8 @@
         <a href="#" class="logo"><img src="imagesHome/logo.png" id="imgLogo"></a>
         <ul>
             <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="login/login.php">Login</a></li>
+            <li><a href="login/register.php">Register</a></li>
         </ul>
     </header>
     <section>
