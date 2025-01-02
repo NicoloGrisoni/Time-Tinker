@@ -4,13 +4,38 @@
     require_once "file_manager.php";
 
     class event_list {
-        /**
-         * Lista degli utenti presenti
-         * @var array
-         */
-        const FILE = "events.csv";
+        private const FILE = "events.csv";
 
-        //metodo per ottenere tutti gli eventi importanti
+        // Metodo per ottenere tutti gli eventi importanti
+        public static function GetImportants() {
+            $allEvents = self::GetEvents();
+            $importants = array();
+            foreach ($allEvents as $event) {
+                if ($event->isImportant() == "importante") {
+                    $importants[] = $event;
+                }
+            }
+
+            return $importants;
+        }
+
+        // Metodo privato per ottenere tutti gli eventi dal file
+        private static function GetEvents() {
+            $events = array();
+            $rows = file_manager::GetRowFromFile(self::FILE);
+            if (is_array($rows)) {
+                foreach ($rows as $row) {
+                    $fields = file_manager::GetFieldsFromRow(";", $row);
+                    if (is_array($fields) && count($fields) == 5) {
+                        $event = new event($fields[0], $fields[1], $fields[2], $fields[3], $fields[4]);
+                        $events[] = $event;
+                    }
+                }
+            }
+
+            return $events;
+        }
+
         //metodo per ottenere tutti gli eventi dato un determinato anno
         //metodo per aggiungere un evento
             //controlla se non esistre l'evento e lo inserisce

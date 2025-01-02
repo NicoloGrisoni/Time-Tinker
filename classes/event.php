@@ -30,7 +30,7 @@
             return $this->image;
         }
 
-        public function getIsImportant() {
+        public function isImportant() {
             return $this->isImportant;
         }
 
