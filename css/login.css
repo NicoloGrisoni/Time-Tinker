@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('sfondo-completo.png') no-repeat;
+    background: url('../imagesHome/sfondo-completo.png') no-repeat;
     background-size: cover;
     background-position: center;
 }
