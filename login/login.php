@@ -20,6 +20,12 @@
     <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>  
+    <?php 
+        // if (isset($_GET["messaggio"])) {
+        //     echo $_GET["messaggio"];
+        // }
+    ?>
+
     <div class="wrapper">
         <form action="login_manager.php" method="get">
             <h1>Login</h1>
