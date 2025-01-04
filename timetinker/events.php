@@ -37,7 +37,7 @@
             <th>Date</th>
         </tr>
         <?php
-            $events = event_list::GetEventsByYear($_GET["year"]);
+            $events = EventList::GetEventsByYear($_GET["year"]);
             foreach ($events as $e) {
                 echo "<tr>";
                 echo "<td>" . $e->getName() . "</td>";

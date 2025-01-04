@@ -11,7 +11,7 @@
         exit;
     }
 
-    $utenti = new user_list("users.csv");
+    $utenti = new UserList("users.csv");
     $user = $utenti->doLogin($_GET["username"], $_GET["password"]);
     if (!is_null($user)) {
         header("location: register.php?messaggio=credenziali già utilizzate... inseriscine delle altre");
@@ -19,7 +19,7 @@
     }
 
 
-    file_manager::InsertContent("users.csv", $_GET["username"] . ";" . $_GET["password"], true);
+    FileManager::InsertContent("users.csv", $_GET["username"] . ";" . $_GET["password"], true);
 
     if (!isset($_SESSION)) {
         session_start();

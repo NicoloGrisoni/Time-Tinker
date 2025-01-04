@@ -1,9 +1,9 @@
 <?php 
     //inclusione delle classi necessarie
-    require_once "user.php";
-    require_once "file_manager.php";
+    require_once "User.php";
+    require_once "FileManager.php";
 
-    class user_list {
+    class UserList {
         /**
          * Lista degli utenti presenti
          * @var array
@@ -24,19 +24,19 @@
             $users = array();
 
             //chiamata del metodo getRowsFromFile per ottenere le righe del file letto
-            $rows = file_manager::GetRowFromFile($file);
+            $rows = FileManager::GetRowFromFile($file);
 
             //per ogni riga...
             foreach ($rows as $row) {
                 //chiamata del metodo getFieldsOfRow per ottenere i campi di ciascuna riga
-                $fields = file_manager::GetFieldsFromRow(";", $row);
+                $fields = FileManager::GetFieldsFromRow(";", $row);
                 if(is_array($fields))
                 {
                     //controllo la validità dei campi
                     //devono essercene 3 per essere valide, altrimenti non viene fatto nulla
                     if (count($fields) == 2) {
                         //valido --> definizione dell'utente e salvataggio di esso
-                        $utente = new user($fields[0], $fields[1]);
+                        $utente = new User($fields[0], $fields[1]);
                         array_push($users, $utente);
                     } else {
                         continue;

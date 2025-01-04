@@ -1,5 +1,5 @@
 <?php 
-    class event {
+    class Event {
         private $name;
         private $description;
         private $date;

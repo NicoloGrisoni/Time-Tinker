@@ -23,7 +23,7 @@
     //definizione del file degli utenti
     $file_utenti = "users.csv";
     //definizione del vettore contenente tutti gli utenti presenti
-    $utenti = new user_list($file_utenti);
+    $utenti = new UserList($file_utenti);
     //chiamata del metodo tryDoLogin per verificare che username e password inserite dall'utente siano valide
     $user = $utenti->doLogin($_GET["username"], $_GET["password"]);
 

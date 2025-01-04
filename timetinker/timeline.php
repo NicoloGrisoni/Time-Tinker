@@ -57,7 +57,7 @@
     <div class="flex-parent">
         <div class="input-flex-container">
             <?php
-                $importants = event_list::GetImportants();
+                $importants = EventList::GetImportants();
                 foreach ($importants as $i) {
                     $year = $i->getDate();
                     $name = $i->getName();

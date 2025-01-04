@@ -1,9 +1,9 @@
 <?php 
     //inclusione delle classi necessarie
-    require_once "event.php";
-    require_once "file_manager.php";
+    require_once "Event.php";
+    require_once "FileManager.php";
 
-    class event_list {
+    class EventList {
         private const FILE = "events.csv";
 
         // Metodo per ottenere tutti gli eventi importanti
@@ -22,12 +22,12 @@
         // Metodo privato per ottenere tutti gli eventi dal file
         private static function GetEvents() {
             $events = array();
-            $rows = file_manager::GetRowFromFile(self::FILE);
+            $rows = FileManager::GetRowFromFile(self::FILE);
             if (is_array($rows)) {
                 foreach ($rows as $row) {
-                    $fields = file_manager::GetFieldsFromRow(";", $row);
+                    $fields = FileManager::GetFieldsFromRow(";", $row);
                     if (is_array($fields) && count($fields) == 5) {
-                        $event = new event($fields[0], $fields[1], $fields[2], $fields[3], $fields[4]);
+                        $event = new Event($fields[0], $fields[1], $fields[2], $fields[3], $fields[4]);
                         $events[] = $event;
                     }
                 }

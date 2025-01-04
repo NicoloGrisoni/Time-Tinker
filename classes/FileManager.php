@@ -1,5 +1,5 @@
 <?php
-    class file_manager {
+    class FileManager {
         public static function GetRowFromFile($fileName) {
             if(!file_exists("../files/$fileName")) {
                 return null;
@@ -28,7 +28,7 @@
                 if (!is_bool($append)) {
                     return null;
                 } else {
-                    if ($append && count(file_manager::GetRowFromFile($fileName)) > 0) {
+                    if ($append && count(FileManager::GetRowFromFile($fileName)) > 0) {
                         file_put_contents("../files/$fileName", "\r\n$contents", FILE_APPEND);
                     } else {
                         file_put_contents("../files/$fileName", $contents);
