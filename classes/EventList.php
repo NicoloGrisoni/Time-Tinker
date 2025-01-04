@@ -212,16 +212,17 @@ public static function getHistoricalEventFromAPI($year) {
             "no"                // importanza
         );
         
-        return [
-            "success" => true,
-            "event" => $newEvent
-        ];
+        // return [
+        //     "success" => true,
+        //     "event" => $newEvent
+        // ];
+        FileManager::InsertContent("events.csv", $newEvent->toCSV(), true);
         
     } catch (Exception $e) {
-        return [
-            "success" => false,
-            "message" => "Errore: " . $e->getMessage()
-        ];
+        // return [
+        //     "success" => false,
+        //     "message" => "Errore: " . $e->getMessage()
+        // ];
     }
 }
     }
