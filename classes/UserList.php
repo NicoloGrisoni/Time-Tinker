@@ -1,6 +1,6 @@
 <?php 
     //inclusione delle classi necessarie
-    require_once "User.php";
+    require_once "user.php";
     require_once "FileManager.php";
 
     class UserList {

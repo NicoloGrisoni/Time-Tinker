@@ -1,6 +1,6 @@
 <?php 
     //inclusione delle classi necessarie
-    require_once "Event.php";
+    require_once "event.php";
     require_once "FileManager.php";
 
     class EventList {
