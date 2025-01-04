@@ -35,18 +35,14 @@
             <th>Title</th>
             <th>Description</th>
             <th>Date</th>
-            <th>Location</th>
-            <th>Importance</th>
         </tr>
         <?php
             $events = event_list::GetEventsByYear($_GET["year"]);
             foreach ($events as $e) {
                 echo "<tr>";
-                echo "<td>" . $e->getTitle() . "</td>";
+                echo "<td>" . $e->getName() . "</td>";
                 echo "<td>" . $e->getDescription() . "</td>";
                 echo "<td>" . $e->getDate() . "</td>";
-                echo "<td>" . $e->getLocation() . "</td>";
-                echo "<td>" . $e->getImportance() . "</td>";
                 echo "</tr>";
             }
         ?>
