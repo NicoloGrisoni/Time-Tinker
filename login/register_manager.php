@@ -1,5 +1,5 @@
 <?php 
-    require_once("../classes/user_list.php");
+    require_once("../classes/UserList.php");
 
     if (!isset($_GET["username"]) || !isset($_GET["password"])) {
         header("location: register.php?messaggio=devi impostare i campi correttamente");

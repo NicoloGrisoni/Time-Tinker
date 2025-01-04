@@ -1,7 +1,7 @@
 <?php 
     //inclusione delle classi necessarie
-    require_once("../classes/user_list.php");
-    require_once("../classes/file_manager.php");
+    require_once("../classes/UserList.php");
+    require_once("../classes/FileManager.php");
 
     //CONTROLLI DI PRESENZA CORRETTA DEI DATI
     //controllo se le variabili di username e password sono impostate

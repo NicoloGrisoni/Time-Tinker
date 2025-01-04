@@ -1,5 +1,5 @@
 <?php 
-    require_once "../classes/event_list.php";
+    require_once "../classes/EventList.php";
 
     if (!isset($_SESSION)) {
         session_start();
