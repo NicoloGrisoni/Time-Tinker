@@ -37,6 +37,18 @@
         }
 
         //metodo per ottenere tutti gli eventi dato un determinato anno
+        public static function GetEventsByYear($year) {
+            $events = self::GetEvents();
+            $eventsByYear = array();
+            foreach ($events as $event) {
+                if ($event->getDate() == $year) {
+                    $eventsByYear[] = $event;
+                }
+            }
+
+            return $eventsByYear;
+        }
+
         //metodo per aggiungere un evento
             //controlla se non esistre l'evento e lo inserisce
             //altrimenti non lo aggiunge

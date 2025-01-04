@@ -1,4 +1,6 @@
 <?php 
+    require_once "../classes/event_list.php";
+
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -7,4 +9,47 @@
         header("location: ../login/login.php?messaggio=Devi effettuare il login per accedere a questa pagina");
         exit;
     }
+
+    if(!isset($_GET["year"]) || empty($_GET["year"])) {
+        header("location: timeline.php");
+        exit;
+    }
+    if(!is_numeric($_GET["year"]) || $_GET["year"] > date("Y") || $_GET["year"] < -1000) {
+        header("location: timeline.php");
+        exit;
+    }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+</head>
+<body>
+    <h1>Events</h1>
+    <h2>Year: <?php echo $_GET["year"]; ?></h2>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Importance</th>
+        </tr>
+        <?php
+            $events = event_list::GetEventsByYear($_GET["year"]);
+            foreach ($events as $e) {
+                echo "<tr>";
+                echo "<td>" . $e->getTitle() . "</td>";
+                echo "<td>" . $e->getDescription() . "</td>";
+                echo "<td>" . $e->getDate() . "</td>";
+                echo "<td>" . $e->getLocation() . "</td>";
+                echo "<td>" . $e->getImportance() . "</td>";
+                echo "</tr>";
+            }
+        ?>
+    </table>
+</body>
+</html>
