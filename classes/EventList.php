@@ -102,76 +102,127 @@
             //altrimenti non lo aggiunge
         //metodo chiamata alle API
 
-        //metodo API per cercare eventi
-        public static function generateHistoricalEvent($year) {
-            // La chiave API di OpenAI
-            $apiKey = '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'; // Sostituisci con la tua chiave API
+//metodo chiamata alle API
+public static function getHistoricalEventFromAPI($year) {
+    // Configura l'URL dell'API di Wikipedia (versione italiana)
+    $baseUrl = "https://it.wikipedia.org/w/api.php";
+    
+    // Lista di termini storici per migliorare la ricerca
+    $searchTerms = "storia OR scoperta OR invenzione OR guerra OR rivoluzione OR trattato OR evento";
+    
+    // Parametri della richiesta
+    $params = [
+        "action" => "query",
+        "format" => "json",
+        "generator" => "search",
+        "gsrsearch" => "$year $searchTerms",  // Ricerca più generale
+        "gsrlimit" => 10,  // Aumentiamo il limite per avere più risultati
+        "prop" => "extracts",
+        "exintro" => true,
+        "explaintext" => true
+    ];
+    
+    $url = $baseUrl . "?" . http_build_query($params);
+    
+    $options = [
+        "http" => [
+            "method" => "GET",
+            "header" => "User-Agent: HistoricalEventsApp/1.0 (your@email.com)\r\n"
+        ]
+    ];
+    
+    $context = stream_context_create($options);
+    
+    try {
+        $response = file_get_contents($url, false, $context);
         
-            // Impostazioni per la richiesta API di OpenAI
-            // Prompt rivisitato per cercare di generare eventi storici significativi
-            $prompt = "Genera un evento storico significativo accaduto nell'anno $year, includendo una breve descrizione dettagliata.";
+        if ($response === false) {
+            throw new Exception("Errore nel recupero dei dati");
+        }
         
-            // Configura la richiesta per OpenAI
-            $data = [
-                'model' => 'gpt-3.5-turbo', // Usa il modello GPT-4
-                'messages' => [
-                    ['role' => 'system', 'content' => 'You are a helpful assistant.'],
-                    ['role' => 'user', 'content' => $prompt]
-                ],
-                'max_tokens' => 200,  // Limita la lunghezza della risposta
-                'temperature' => 0.7, // Aumentiamo la temperatura per risposte più creative
+        $data = json_decode($response, true);
+        
+        if (!isset($data['query']['pages']) || empty($data['query']['pages'])) {
+            return [
+                "success" => false,
+                "message" => "Nessun evento trovato per l'anno $year"
             ];
+        }
         
-            // Inizializza cURL
-            $ch = curl_init();
+        // Cerchiamo l'articolo più rilevante
+        $bestMatch = null;
+        $bestScore = 0;
         
-            // Imposta le opzioni di cURL
-            curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/chat/completions");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                "Content-Type: application/json",
-                "Authorization: Bearer $apiKey"
-            ]);
-        
-            // Esegui la richiesta e ottieni la risposta
-            $response = curl_exec($ch);
-        
-            // Controlla se c'è stato un errore durante l'esecuzione di cURL
-            if (curl_errno($ch)) {
-                echo 'Error cURL: ' . curl_error($ch);
-                curl_close($ch);
-                return;
+        foreach ($data['query']['pages'] as $page) {
+            $score = 0;
+            
+            // Verifica se il titolo contiene l'anno
+            if (strpos($page['title'], $year) !== false) {
+                $score += 2;
             }
-        
-            // Chiudi la connessione cURL
-            curl_close($ch);
-        
-            // Decodifica la risposta JSON
-            $responseData = json_decode($response, true);
-        
-            // Verifica se la risposta contiene un risultato
-            if (isset($responseData['choices'][0]['message']['content'])) {
-                $eventDescription = $responseData['choices'][0]['message']['content'];
-        
-                // Restituisce l'evento e la sua descrizione
-                return [
-                    'event_title' => "Evento storico nel $year",
-                    'event_description' => $eventDescription
-                ];
-            } else {
-                // Se non è possibile ottenere un evento, diagnosticare meglio l'errore
-                if (isset($responseData['error'])) {
-                    return [
-                        'error' => 'Errore API OpenAI: ' . $responseData['error']['message']
-                    ];
-                } else {
-                    return [
-                        'error' => 'Impossibile ottenere un evento storico per l\'anno ' . $year . '. La risposta dell\'API sembra vuota o non valida.'
-                    ];
-                }
+            
+            // Verifica se la descrizione contiene l'anno
+            if (strpos($page['extract'], $year) !== false) {
+                $score += 1;
+            }
+            
+            // Evita risultati troppo generici
+            if ($page['title'] === $year || strlen($page['title']) < 5) {
+                $score -= 3;
+            }
+            
+            // Preferisci titoli più corti (spesso più specifici)
+            $score -= (strlen($page['title']) / 100);
+            
+            if ($score > $bestScore) {
+                $bestScore = $score;
+                $bestMatch = $page;
             }
         }
+        
+        if ($bestMatch === null) {
+            $bestMatch = reset($data['query']['pages']);
+        }
+        
+        // Estraiamo la frase più rilevante dalla descrizione
+        $description = $bestMatch['extract'];
+        $sentences = explode(". ", $description);
+        $relevantSentence = "";
+        
+        foreach ($sentences as $sentence) {
+            if (strpos($sentence, $year) !== false) {
+                $relevantSentence = $sentence;
+                break;
+            }
+        }
+        
+        if (empty($relevantSentence)) {
+            $relevantSentence = $sentences[0];
+        }
+        
+        // Pulizia del titolo (rimuove date tra parentesi se presenti)
+        $title = preg_replace('/\s*\([^)]*\)/', '', $bestMatch['title']);
+        
+        // Crea un nuovo oggetto Event
+        $newEvent = new Event(
+            $title,                          // data
+            $relevantSentence,                         // nome
+            $year . ".",        // descrizione
+            "",                             // percorso immagine
+            "no"                // importanza
+        );
+        
+        return [
+            "success" => true,
+            "event" => $newEvent
+        ];
+        
+    } catch (Exception $e) {
+        return [
+            "success" => false,
+            "message" => "Errore: " . $e->getMessage()
+        ];
+    }
+}
     }
 ?>
