@@ -34,8 +34,7 @@
             return $this->isImportant;
         }
 
-        public function toCSV()
-        {
+        public function toCSV() {
             return $this->name . ";" . $this->description . ";" . $this->date . ";" . $this->image;
         }
     }

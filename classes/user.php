@@ -19,8 +19,7 @@
             return false;
         }
 
-        public function toCSV()
-        {
+        public function toCSV() {
             return $this->username . ";" . $this->password;
         }
     }
