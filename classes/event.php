@@ -26,6 +26,10 @@
             return $this->date;
         }
 
+        public function setDate($date) {
+            $this->date = $date;
+        }
+
         public function getImage() {
             return $this->image;
         }
@@ -35,7 +39,7 @@
         }
 
         public function toCSV() {
-            return $this->name . ";" . $this->description . ";" . $this->date . ";" . $this->image;
+            return $this->name . ";" . $this->description . ";" . $this->date . ";" . $this->image .";" . $this->isImportant;
         }
     }
 ?>

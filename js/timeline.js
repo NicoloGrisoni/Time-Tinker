@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const inputs = document.querySelectorAll(".input");
     const paras = document.querySelectorAll(".description-flex-container p");
+    let img = document.getElementById("image");
 
     inputs.forEach((input, index) => {
         input.addEventListener("click", function () {
@@ -9,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
             paras.forEach(el => el.classList.remove("active"));
 
             let pathImg = input.getElementsByTagName("label")[0].innerHTML;
-            let img = document.getElementById("image");
 
             img.src = pathImg;
 
@@ -18,5 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 paras[index].classList.add("active");
             }
         });
+    });
+
+    img.addEventListener("click", function() {
+        let srcImage = img.src;
+        window.location.href = "event_description.php?src=" + srcImage;
     });
 });

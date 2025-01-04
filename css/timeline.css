@@ -109,7 +109,7 @@ html, body {
   }
   .input span::before {
     content: attr(data-info);
-    top: -65px;
+    top: -75px;
     width: 80px;
     transform: translateX(-5px);
     font-size: 12px;

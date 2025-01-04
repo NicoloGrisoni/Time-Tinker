@@ -58,6 +58,7 @@
         <div class="input-flex-container">
             <?php
                 $importants = EventList::GetImportants();
+                $importants = EventList::OrderEventsByYear($importants);
                 foreach ($importants as $i) {
                     $year = $i->getDate();
                     $name = $i->getName();
