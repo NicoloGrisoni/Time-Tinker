@@ -45,6 +45,15 @@
                 echo "<td>" . $e->getDate() . "</td>";
                 echo "</tr>";
             }
+
+            $result = EventList::generateHistoricalEvent(1492);
+
+            if (isset($result['error'])) {
+                echo $result['error'];
+            } else {
+                echo "Nome Evento: " . $result['event_title'] . "<br>";
+                echo "Descrizione: " . $result['event_description'] . "<br>";
+            }
         ?>
     </table>
 </body>

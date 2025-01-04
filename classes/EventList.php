@@ -103,63 +103,74 @@
         //metodo chiamata alle API
 
         //metodo API per cercare eventi
-        function searchEvents($year, $numEvents) {
-            // Evento storico dall'API Ninjas
-            $url_eventi = "https://api.api-ninjas.com/v1/historicalevents?year=" . $year . "&limit=" . $numEvents;
-
-            $ch = curl_init($url_eventi);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'X-Api-Key: B9z0CO1/XmbeuILJulYrEw==PGBVRHsUU8uvkYwW'
-            ));
-            $risposta_eventi = curl_exec($ch);
-
-            if(curl_errno($ch)) {
-                die('Errore nella richiesta eventi: ' . curl_error($ch));
+        public static function generateHistoricalEvent($year) {
+            // La chiave API di OpenAI
+            $apiKey = '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'; // Sostituisci con la tua chiave API
+        
+            // Impostazioni per la richiesta API di OpenAI
+            // Prompt rivisitato per cercare di generare eventi storici significativi
+            $prompt = "Genera un evento storico significativo accaduto nell'anno $year, includendo una breve descrizione dettagliata.";
+        
+            // Configura la richiesta per OpenAI
+            $data = [
+                'model' => 'gpt-3.5-turbo', // Usa il modello GPT-4
+                'messages' => [
+                    ['role' => 'system', 'content' => 'You are a helpful assistant.'],
+                    ['role' => 'user', 'content' => $prompt]
+                ],
+                'max_tokens' => 200,  // Limita la lunghezza della risposta
+                'temperature' => 0.7, // Aumentiamo la temperatura per risposte più creative
+            ];
+        
+            // Inizializza cURL
+            $ch = curl_init();
+        
+            // Imposta le opzioni di cURL
+            curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/chat/completions");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Content-Type: application/json",
+                "Authorization: Bearer $apiKey"
+            ]);
+        
+            // Esegui la richiesta e ottieni la risposta
+            $response = curl_exec($ch);
+        
+            // Controlla se c'è stato un errore durante l'esecuzione di cURL
+            if (curl_errno($ch)) {
+                echo 'Error cURL: ' . curl_error($ch);
+                curl_close($ch);
+                return;
             }
-
-            $eventi = json_decode($risposta_eventi, true);
+        
+            // Chiudi la connessione cURL
             curl_close($ch);
-
-            if (!empty($eventi)) {
-                $evento = $eventi[0]['event']; // Primo evento
-                echo "Evento selezionato: $evento\n";
-
-                // Generare immagine con DALL·E
-                $url_image = "https://api.openai.com/v1/images/generations";
-
-                $data = array(
-                    "prompt" => $evento, // Prompt basato sull'evento
-                    "n" => 1,
-                    "size" => "1920x1080"
-                );
-
-                $ch_img = curl_init($url_image);
-                curl_setopt($ch_img, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch_img, CURLOPT_POST, true);
-                curl_setopt($ch_img, CURLOPT_HTTPHEADER, array(
-                    'Authorization: Bearer LA_TUA_CHIAVE_API_OPENAI', // Sostituisci con la tua chiave API OpenAI
-                    'Content-Type: application/json'
-                ));
-                curl_setopt($ch_img, CURLOPT_POSTFIELDS, json_encode($data));
-
-                $risposta_img = curl_exec($ch_img);
-
-                if(curl_errno($ch_img)) {
-                    die('Errore nella richiesta immagine: ' . curl_error($ch_img));
-                }
-
-                $immagine = json_decode($risposta_img, true);
-                curl_close($ch_img);
-
-                if (!empty($immagine['data'])) {
-                    $url_immagine = $immagine['data'][0]['url'];
-                    echo "Immagine generata: $url_immagine\n";
-                } else {
-                    echo "Nessuna immagine generata.";
-                }
+        
+            // Decodifica la risposta JSON
+            $responseData = json_decode($response, true);
+        
+            // Verifica se la risposta contiene un risultato
+            if (isset($responseData['choices'][0]['message']['content'])) {
+                $eventDescription = $responseData['choices'][0]['message']['content'];
+        
+                // Restituisce l'evento e la sua descrizione
+                return [
+                    'event_title' => "Evento storico nel $year",
+                    'event_description' => $eventDescription
+                ];
             } else {
-                echo "Nessun evento trovato per l'anno $year.";
+                // Se non è possibile ottenere un evento, diagnosticare meglio l'errore
+                if (isset($responseData['error'])) {
+                    return [
+                        'error' => 'Errore API OpenAI: ' . $responseData['error']['message']
+                    ];
+                } else {
+                    return [
+                        'error' => 'Impossibile ottenere un evento storico per l\'anno ' . $year . '. La risposta dell\'API sembra vuota o non valida.'
+                    ];
+                }
             }
         }
     }
