@@ -47,6 +47,8 @@
                 echo "<td>" . $e->getDate() . "</td>";
                 echo "</tr>";
             }
+
+            //EventList::getHistoricalEventFromAPI($_GET["year"]);
         ?>
     </table>
 </body>
