@@ -1,0 +1,137 @@
+/* Reset base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile globale */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Contenitore principale */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.header p {
+    font-size: 1.2em;
+    color: #666;
+    font-weight: 300;
+}
+
+/* Dettagli Evento */
+.event-details {
+    margin-bottom: 30px;
+}
+
+.event-details h2 {
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.event-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.event-img {
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-description {
+    width: 55%;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-description p {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+/* Form */
+.form-container {
+    text-align: center;
+}
+
+.form-container h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 80%;
+    height: 200px;
+    padding: 15px;
+    font-size: 1.2em;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    resize: vertical; /* Consente solo ridimensionamento verticale */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 12px 30px;
+    font-size: 1.2em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Aggiungi una responsività */
+@media (max-width: 768px) {
+    .event-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .event-img {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .event-description {
+        width: 100%;
+    }
+
+    textarea {
+        width: 90%;
+    }
+}

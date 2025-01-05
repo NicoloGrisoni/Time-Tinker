@@ -1,0 +1,108 @@
+/* Resetta il margine e il padding di default */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Il body prende tutto lo spazio disponibile e si usa Flexbox per centrare il contenuto */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(#b5a49d, #ffffff);
+}
+
+/* Contenitore della card */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* La card è una struttura che occupa la maggior parte dello schermo, con un rapporto di altezza maggiore rispetto alla larghezza */
+.card {
+    width: 80%; /* Occupa l'80% della larghezza dello schermo */
+    height: 80vh; /* Occupa l'80% dell'altezza dello schermo */
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1); /* Ombra più forte */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Effetto di transizione */
+}
+
+/* Effetto tridimensionale: leggera rotazione al passaggio del mouse */
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2), 0 7px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Immagine della card */
+.card-img {
+    width: 100%;
+    height: 60%; /* L'immagine occuperà il 60% dell'altezza della card */
+    object-fit: cover;
+}
+
+/* Contenuto della card */
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 40%; /* Il contenuto occuperà il 40% della card */
+}
+
+/* Nome dell'evento */
+.event-name {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Data dell'evento */
+.event-date {
+    font-size: 1.2em;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* Descrizione dell'evento */
+.event-description {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Bottone per manipolare l'evento */
+.event-action-button {
+    text-align: center;
+    background-color: #007bff; /* Colore blu accattivante */
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none; /* Rimuovi la sottolineatura dal link */
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.3s; /* Aggiunta di animazione al passaggio del mouse */
+}
+
+/* Cambia colore del bottone al passaggio del mouse */
+.event-action-button:hover {
+    background-color: #0056b3; /* Colore più scuro */
+    transform: translateY(-3px); /* Effetto di spinta verso l'alto */
+}
+
+/* Bottone per manipolare l'evento (se è un link) */
+.event-action-button:active {
+    transform: translateY(1px); /* Effetto di pressione quando si clicca */
+}

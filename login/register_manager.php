@@ -12,9 +12,9 @@
     }
 
     $utenti = new UserList("users.csv");
-    $user = $utenti->doLogin($_GET["username"], $_GET["password"]);
-    if (!is_null($user)) {
-        header("location: register.php?messaggio=credenziali già utilizzate... inseriscine delle altre");
+    $isUsernameValid = $utenti->checkUsername($_GET["username"]);
+    if (!$isUsernameValid) {
+        header("location: register.php?messaggio=username già in uso... inseriscine un altro");
         exit;
     }
 

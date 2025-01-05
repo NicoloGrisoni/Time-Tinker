@@ -1,99 +1,55 @@
 <?php 
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once "../classes/EventList.php";
+
+    session_start();
 
     if (!isset($_SESSION["user"])) {
         header("location: ../login/login.php?messaggio=Devi effettuare il login per accedere a questa pagina");
         exit;
     }
-?>
 
-<?php
-// Se il form è stato inviato, esegui il codice PHP per inviare la richiesta all'API
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    // La tua chiave API di Anthropic (inseriscila qui)
-    $apiKey = 'YOUR_API_KEY';  // Sostituisci con la tua chiave API
-
-    // Imposta l'endpoint dell'API di Anthropic
-    $apiUrl = 'https://api.anthropic.com/v1/claude/completions';  // Assicurati che l'endpoint sia corretto
-
-    // Ottieni l'evento e la modifica dall'input del form
-    $evento = $_POST['evento'];
-    $modifica = $_POST['modifica'];
-
-    // Creiamo il prompt che invieremo all'API
-    $prompt = "Immagina che l\'evento storico \"{$evento}\" non avvenga come descritto. Invece, {$modifica}. Quali sarebbero le possibili conseguenze di questo cambiamento nel corso della storia?";
-
-    // Crea il corpo della richiesta
-    $data = array(
-        'model' => 'claude-2', // Modello che vuoi utilizzare, verifica quale modello è attivo
-        'prompt' => $prompt,
-        'max_tokens' => 500,  // Limite per la risposta in termini di numero di token
-        'temperature' => 0.7   // Imposta la temperatura per la creatività delle risposte
-    );
-
-    // Impostazioni per la richiesta cURL
-    $options = array(
-        CURLOPT_URL => $apiUrl,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => true,
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer ' . $apiKey,
-            'Content-Type: application/json'
-        ),
-        CURLOPT_POSTFIELDS => json_encode($data)
-    );
-
-    // Esegui la richiesta cURL
-    $ch = curl_init();
-    curl_setopt_array($ch, $options);
-
-    // Ottieni la risposta dell'API
-    $response = curl_exec($ch);
-
-    // Verifica se ci sono errori nella richiesta
-    if(curl_errno($ch)) {
-        $result = 'Error: ' . curl_error($ch);
-    } else {
-        // Decodifica la risposta JSON
-        $responseData = json_decode($response, true);
-
-        // Visualizza la risposta generata dal modello
-        if(isset($responseData['completion'])) {
-            $result = $responseData['completion'];
-        } else {
-            $result = "Errore nella risposta: " . json_encode($responseData);
-        }
+    if (!isset($_GET["src"]) || empty($_GET["src"])) {
+        header("location: timeline.php");
+        exit;
     }
 
-    // Chiudi la connessione cURL
-    curl_close($ch);
-}
+    $srcImg = $_GET["src"];
+    $event = EventList::GetEventByImagePath($srcImg);
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Modifica Evento Storico</title>
+    <link rel="stylesheet" href="../css/event_modifier.css">
 </head>
 <body>
-    <main>
-        <div class="container">
-            <form action="modifier_result.php" method="post">
-                <div>
-                    <label for="prompt">prompt</label>
-                    <input type="text" name="prompt" id="prompt">
-                </div>
+    <div class="container">
+        <div class="header">
+            <h1>Modifica il Corso della Storia</h1>
+            <p>Scopri come piccole modifiche possano cambiare il destino di un evento storico!</p>
+        </div>
 
-                <div>
-                    <button type="submit">Invia</button>
+        <div class="event-details">
+            <h2>Evento Selezionato</h2>
+            <div class="event-info">
+                <img src="<?php echo htmlspecialchars($srcImg); ?>" alt="Immagine evento" class="event-img">
+                <div class="event-description">
+                    <p><strong>Nome Evento:</strong> <?php echo htmlspecialchars($event->getName()); ?></p>
+                    <p><strong>Data:</strong> <?php echo htmlspecialchars($event->getDate()); ?></p>
+                    <p><strong>Descrizione:</strong> <?php echo nl2br(htmlspecialchars($event->getDescription())); ?></p>
                 </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h2>Modifica la Storia</h2>
+            <form action="modifier_results.php?src=<?php echo urlencode($srcImg); ?>" method="post">
+                <textarea name="prompt" placeholder="Descrivi qui la modifica che vuoi fare..."></textarea>
+                <button type="submit">Invia Modifica</button>
             </form>
         </div>
-    </main>
+    </div>
 </body>
 </html>

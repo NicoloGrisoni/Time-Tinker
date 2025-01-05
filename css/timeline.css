@@ -109,11 +109,12 @@ html, body {
   }
   .input span::before {
     content: attr(data-info);
-    top: -75px;
+    top: -90px;
     width: 80px;
     transform: translateX(-5px);
     font-size: 12px;
     text-indent: -10px;
+    padding-right: 100px;
   }
   
   .description-flex-container {

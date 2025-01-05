@@ -64,5 +64,14 @@
             }
             return null;
         }
+
+        public function checkUsername($username) {
+            foreach ($this->utenti as $utente) {
+                if ($utente->getUsername() == $username) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 ?>

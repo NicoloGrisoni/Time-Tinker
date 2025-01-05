@@ -28,28 +28,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../css/events.css">
+    <script src="../js/events.js"></script>
 </head>
 <body>
-    <h1>Events</h1>
-    <h2>Year: <?php echo $_GET["year"]; ?></h2>
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Date</th>
-        </tr>
-        <?php
-            $events = EventList::GetEventsByYear($_GET["year"]);
-            foreach ($events as $e) {
-                echo "<tr>";
-                echo "<td>" . $e->getName() . "</td>";
-                echo "<td>" . $e->getDescription() . "</td>";
-                echo "<td>" . $e->getDate() . "</td>";
-                echo "</tr>";
-            }
 
-            //EventList::getHistoricalEventFromAPI($_GET["year"]);
-        ?>
-    </table>
+    <div class="banner">
+            <?php
+                $events = EventList::GetEventsByYear($_GET["year"]);
+                $length = sizeof($events);
+                echo "<div class='slider' style='--quantity: $length'>";
+                foreach ($events as $i => $e) {
+                    $pathImg = $e->getImage();
+                    $name = $e->getName();
+                    echo "<div class='item' style='--position: $i'>";
+                    echo "<div class='card' style='width: 18rem;'>";
+                    echo "<img src='$pathImg' class='card-img-top'>";
+                    echo "<div class='card-body'>";
+                    echo "<h5 class='card-title'>" . $name . "</h5>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+            ?>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,142 @@
+/* Reset di base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile globale */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Contenitore principale */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* Dettagli dell'evento */
+.event-details {
+    margin-bottom: 40px;
+}
+
+.event-details h2 {
+    font-size: 2.2em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.event-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.event-img {
+    width: 45%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-description {
+    width: 50%;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-description p {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Sezione Modifica (Visualizzazione scelta dell'utente) */
+.form-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-container h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.user-choice {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #333;
+    white-space: pre-wrap; /* Mantiene il formato dei ritorni a capo */
+    line-height: 1.6;
+}
+
+/* Risultato della modifica */
+.result-container {
+    margin-top: 40px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-container h3 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.result-container p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Pulsante di invio (disabilitato in questa parte perché non c'è più il campo di testo) */
+button {
+    padding: 12px 30px;
+    font-size: 1.2em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Media Query per dispositivi mobili */
+@media (max-width: 768px) {
+    .event-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .event-img {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .event-description {
+        width: 100%;
+    }
+
+    .user-choice {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
