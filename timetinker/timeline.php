@@ -40,7 +40,7 @@
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item dropdown">
                 <li><a class="dropdown-item" href="../login/logout.php">Logout</a></li>
-                <li><a class="dropdown-item" href="#">Chronology</a></li>
+                <li><a class="dropdown-item" href="chronology.php">Chronology</a></li>
             </li>
             </ul>
             <form class="d-flex mt-3" role="search">
