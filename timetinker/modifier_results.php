@@ -1,15 +1,18 @@
-<?php 
+<?php
+    //inclusione dei file contenenti classi necessarie per il funzionamento corretto di questa pagina dei controlli login
     require_once "../classes/EventList.php";
     require_once "../classes/FileManager.php";
     require_once "../classes/user.php";
 
     session_start();
 
+    //controllo per evitare che un utente non autenticato possa accedere a questa pagina privata
     if (!isset($_SESSION["user"])) {
         header("location: ../login/login.php?messaggio=Devi effettuare il login per accedere a questa pagina");
         exit;
     }
 
+    //controllo della presenza e validità del parametro src
     if (!isset($_GET["src"]) || empty($_GET["src"])) {
         header("location: timeline.php");
         exit;
@@ -19,7 +22,7 @@
     $srcImg = $_GET["src"];
     $event = EventList::GetEventByImagePath($srcImg);
     $name = $event->getName();
-    $date = $event->getDate();
+    $date = $event->getYears();
 
     // Gestione della richiesta al modello Llama
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prompt'])) {

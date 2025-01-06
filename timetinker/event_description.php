@@ -1,15 +1,18 @@
 <?php 
+    //inclusione dei file contenenti classi necessarie per il funzionamento corretto di questa pagina dei controlli login
     require_once "../classes/EventList.php";
 
     if (!isset($_SESSION)) {
         session_start();
     }
 
+    //controllo per evitare che un utente non autenticato possa accedere a questa pagina privata
     if (!isset($_SESSION["user"])) {
         header("location: ../login/login.php?messaggio=Devi effettuare il login per accedere a questa pagina");
         exit;
     }
 
+    //controllo presenza e validità parametro src
     if(!isset($_GET["src"]) || empty($_GET["src"])) {
         header("location: timeline.php");
         exit;
@@ -61,7 +64,7 @@
 
         $name = $event->getName();
         $description = $event->getDescription();
-        $date = $event->getDate();
+        $date = $event->getYears();
     ?>
 
     <!-- Card Container -->

@@ -1,13 +1,16 @@
 <?php 
+    //inclusione dei file contenenti classi necessarie per il funzionamento corretto di questa pagina dei controlli login
     require_once "../classes/EventList.php";
 
     session_start();
 
+    //controllo per evitare che un utente non autenticato possa accedere a questa pagina privata
     if (!isset($_SESSION["user"])) {
         header("location: ../login/login.php?messaggio=Devi effettuare il login per accedere a questa pagina");
         exit;
     }
 
+    //controllo presenza e validità del parametro src
     if (!isset($_GET["src"]) || empty($_GET["src"])) {
         header("location: timeline.php");
         exit;
@@ -65,7 +68,7 @@
                 <img src="<?php echo htmlspecialchars($srcImg); ?>" alt="Immagine evento" class="event-img">
                 <div class="event-description">
                     <p><strong>Nome Evento:</strong> <?php echo htmlspecialchars($event->getName()); ?></p>
-                    <p><strong>Data:</strong> <?php echo htmlspecialchars($event->getDate()); ?></p>
+                    <p><strong>Data:</strong> <?php echo htmlspecialchars($event->getYears()); ?></p>
                     <p><strong>Descrizione:</strong> <?php echo nl2br(htmlspecialchars($event->getDescription())); ?></p>
                 </div>
             </div>

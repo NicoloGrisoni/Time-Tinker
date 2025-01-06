@@ -1,45 +1,40 @@
 <?php 
-    //inclusione delle classi necessarie
+    //Inclusione dei file contenenti classi necessarie per il funzionamento corretto di questa pagina dei controlli login
     require_once("../classes/UserList.php");
     require_once("../classes/FileManager.php");
 
-    //CONTROLLI DI PRESENZA CORRETTA DEI DATI
-    //controllo se le variabili di username e password sono impostate
+
+    //Controllo per verificare che le variabili di username e password siano effettivamente impostate e presenti
     if (!isset($_GET["username"]) || !isset($_GET["password"])) {
-        //reindirizzamento alla pagina login, errore di mancanza dati
+        //reindirizzamento nel caso in cui anche solo una delle due varibili non sia impostata
         header("location: login.php?messaggio=devi impostare le credenziali");
         exit;
     }
 
-    //controllo se le variabili di username e password corrispondono ad un valore, quindi non sono vuote
+    //Controllo per verificare che le variabili di username e password non siano vuote
     if (empty($_GET["username"]) || empty($_GET["password"])) {
-        //reindirizzamento alla pagina login, errore di dati vuoti
+        //reindirizzamento nel caso in cui anche solo una delle due varibili sia vuota
         header("location: login.php?messaggio=credenziali vuote");
         exit;
     }
 
-
-    //CONTROLLO VALIDITA DEI DATI --> USERNAME E PASSWORD CORRISPONDONO AD UN UTENTE PRESENTE
-    //definizione del file degli utenti
-    $file_utenti = "users.csv";
-    //definizione del vettore contenente tutti gli utenti presenti
-    $utenti = new UserList($file_utenti);
-    //chiamata del metodo tryDoLogin per verificare che username e password inserite dall'utente siano valide
+    //controllo per verificare che username e password passate siano valide per effettuare l'accesso
+    //utilizzo del metodo doLogin dell'istanza della classe UserList per fare questa verifica
+    $utenti = new UserList();
     $user = $utenti->doLogin($_GET["username"], $_GET["password"]);
 
-    //usertype === null --> username e password non valide
-    //usertype !== null --> username e password valide, salvataggio il tipo di utente
     if (is_null($user)) {
+        //reindirizzamento nel caso in cui le credenziali di accesso non corrispondono con nessun utente presente
         header("location: login.php?messaggio=credenziali errate");
         exit;
     }
 
-    //dati di sessione
+
+    //salvataggio nella sessione dell'utente e reindirizzamento alla pagina privata
     if (!isset($_SESSION)) {
         session_start();
     }
 
-    //salvataggio del tipo di utente
     $_SESSION["user"] = $user;
     header("location: ../timetinker/timeline.php");
     exit;

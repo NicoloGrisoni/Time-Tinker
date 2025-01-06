@@ -1,10 +1,12 @@
-<?php 
+<?php
+    //Inclusione dei file contenenti classi necessarie per il funzionamento corretto di questa pagina dei controlli login
     require_once "../classes/EventList.php";
 
     if (!isset($_SESSION)) {
         session_start();
     }
 
+    //controllo per evitare che un utente non autenticato possa accedere a questa pagina privata
     if (!isset($_SESSION["user"])) {
         header("location: ../login/login.php?messaggio=Devi effettuare il login per accedere a questa pagina");
         exit;
@@ -60,7 +62,7 @@
                 $importants = EventList::GetImportants();
                 $importants = EventList::OrderEventsByYear($importants);
                 foreach ($importants as $i) {
-                    $year = $i->getDate();
+                    $year = $i->getYears();
                     $name = $i->getName();
                     $img = $i->getImage();
                     echo "<div class='input'>

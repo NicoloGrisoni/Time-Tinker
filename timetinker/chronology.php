@@ -1,4 +1,5 @@
 <?php 
+    //inclusione dei file contenenti classi necessarie per il funzionamento corretto di questa pagina dei controlli login
     require_once "../classes/FileManager.php";
     require_once "../classes/user.php";
     require_once "../classes/EventList.php";
@@ -7,6 +8,7 @@
         session_start();
     }
 
+    //controllo per evitare che un utente non autenticato possa accedere a questa pagina privata
     if (!isset($_SESSION["user"])) {
         header("location: ../login/login.php?messaggio=Devi effettuare il login per accedere a questa pagina");
         exit;
@@ -31,7 +33,9 @@
             $name = $evento->getName();
             echo "<div class='container' style='border: 1px solid black;'>";
             echo "<p>Evento: $name</p><br>";
-            echo "<p>Conseguenze: $fields[1]</p>";
+
+            $results = $fields[1];
+            echo "<p>Conseguenze: $results</p>";
             echo "</div>";
         }
     ?>

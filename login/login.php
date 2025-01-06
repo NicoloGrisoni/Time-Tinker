@@ -3,6 +3,7 @@
         session_start();
     }
 
+    //controllo per reindirizzare direttamente alla pagina privata un utente già autenticato al sito
     if (isset($_SESSION["user"])) {
         header("location: ../timetinker/timeline.php");
         exit;
@@ -16,16 +17,9 @@
     <title>Login</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="../css/login.css">
 </head>
-<body>  
-    <?php 
-        // if (isset($_GET["messaggio"])) {
-        //     echo $_GET["messaggio"];
-        // }
-    ?>
-
+<body>
     <div class="wrapper">
         <form action="login_manager.php" method="get">
             <h1>Login</h1>
