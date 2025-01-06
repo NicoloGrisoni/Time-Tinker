@@ -12,7 +12,7 @@
 
     //controllo presenza e validità del parametro src
     if (!isset($_GET["src"]) || empty($_GET["src"])) {
-        header("location: timeline.php");
+        header("location: timeline.php?messaggio=nessun evento selezionato");
         exit;
     }
 
@@ -65,11 +65,11 @@
         <div class="event-details">
             <h2>Evento Selezionato</h2>
             <div class="event-info">
-                <img src="<?php echo htmlspecialchars($srcImg); ?>" alt="Immagine evento" class="event-img">
+                <img src="<?php echo $srcImg; ?>" alt="Immagine evento" class="event-img">
                 <div class="event-description">
-                    <p><strong>Nome Evento:</strong> <?php echo htmlspecialchars($event->getName()); ?></p>
-                    <p><strong>Data:</strong> <?php echo htmlspecialchars($event->getYears()); ?></p>
-                    <p><strong>Descrizione:</strong> <?php echo nl2br(htmlspecialchars($event->getDescription())); ?></p>
+                    <p><strong>Nome Evento:</strong> <?php echo $event->getName(); ?></p>
+                    <p><strong>Data:</strong> <?php echo $event->getYears(); ?></p>
+                    <p><strong>Descrizione:</strong> <?php echo $event->getDescription(); ?></p>
                 </div>
             </div>
         </div>

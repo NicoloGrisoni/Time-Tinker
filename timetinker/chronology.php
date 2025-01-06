@@ -20,24 +20,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cronologia Eventi</title>
+    <link rel="stylesheet" href="../css/chronology.css">
 </head>
 <body>
-    <?php
-        $user = $_SESSION["user"];
-        $username = $user->getUsername();
-        $fileRows = FileManager::GetRowFromFile($username."chronology.csv");
-        foreach ($fileRows as $row) {
-            $fields = FileManager::GetFieldsFromRow(";", $row);
-            $evento = EventList::GetEventByIndex($fields[0]);
-            $name = $evento->getName();
-            echo "<div class='container' style='border: 1px solid black;'>";
-            echo "<p>Evento: $name</p><br>";
+    <header>
+        <h1>Cronologia degli Eventi Modificati</h1>
+    </header>
+    <main>
+        <?php
+            $user = $_SESSION["user"];
+            $username = $user->getUsername();
+            $filename = $username . "chronology.csv";
+            $fileRows = FileManager::GetRowFromFile($filename);
 
-            $results = $fields[1];
-            echo "<p>Conseguenze: $results</p>";
-            echo "</div>";
-        }
-    ?>
+            if ($fileRows) {
+                foreach ($fileRows as $row) {
+                    $fields = FileManager::GetFieldsFromRow("§", $row);
+                    if ($fields == null) {
+                        continue;
+                    }
+                    $evento = EventList::GetEventByIndex($fields[0]);
+                    $name = $evento->getName();
+                    $src = $evento->getImage();
+                    $userRequest = $fields[2]; // Supponiamo che la richiesta utente sia nel terzo campo
+                    $results = $fields[1]; // Conseguenze
+
+                    echo "<div class='event-container'>";
+                    echo "<h2 class='event-title'>Evento: $name</h2>";
+                    echo "<p class='event-details'><strong>Richiesta dell'utente:</strong> $userRequest</p>";
+                    echo "<p class='event-details'><strong>Conseguenze:</strong> $results</p>";
+                    echo "<form action='modifier_results.php' method='get'>";
+                    echo "<input type='hidden' name='src' value='" . $src . "'>";
+                    echo "<input type='hidden' name='prompt' value='" . htmlspecialchars($userRequest) . "'>";
+                    echo "<input type='hidden' name='results' value='" . htmlspecialchars($results) . "'>";
+                    echo "<button type='submit' class='event-button'>Vedi Dettagli</button>";
+                    echo "</form>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p class='no-events'>Non ci sono eventi registrati.</p>";
+            }
+        ?>
+    </main>
 </body>
 </html>

@@ -22,10 +22,10 @@ body {
     height: 100%;
 }
 
-/* La card è una struttura che occupa la maggior parte dello schermo, con un rapporto di altezza maggiore rispetto alla larghezza */
+/* La card è una struttura con proporzioni specifiche per garantire che i lati verticali siano più lunghi */
 .card {
-    width: 80%; /* Occupa l'80% della larghezza dello schermo */
-    height: 80vh; /* Occupa l'80% dell'altezza dello schermo */
+    width: 40%; /* Proporzione: la larghezza è il 40% dello schermo */
+    height: 60%; /* Proporzione: l'altezza è il 60% dello schermo */
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1); /* Ombra più forte */
@@ -44,7 +44,7 @@ body {
 /* Immagine della card */
 .card-img {
     width: 100%;
-    height: 60%; /* L'immagine occuperà il 60% dell'altezza della card */
+    height: 50%; /* L'immagine occupa il 50% dell'altezza della card */
     object-fit: cover;
 }
 
@@ -54,12 +54,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 40%; /* Il contenuto occuperà il 40% della card */
+    height: 50%; /* Il contenuto occupa il restante 50% della card */
 }
 
 /* Nome dell'evento */
 .event-name {
-    font-size: 2.5em;
+    font-size: 1.8em;
     font-weight: bold;
     margin-bottom: 10px;
     color: #333;

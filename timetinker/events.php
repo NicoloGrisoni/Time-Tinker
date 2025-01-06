@@ -14,12 +14,12 @@
 
     //controlli sul parametro year per verificarne la correttezza
     if(!isset($_GET["year"]) || empty($_GET["year"])) {
-        header("location: timeline.php");
+        header("location: timeline.php?messaggio=anno non inserito");
         exit;
     }
     if(!is_numeric($_GET["year"]) || $_GET["year"] > date("Y") || $_GET["year"] < -1000) {
         if($_GET["year"] != 0) {
-            header("location: timeline.php");
+            header("location: timeline.php?messaggio=anno non valido");
             exit;
         }
     }

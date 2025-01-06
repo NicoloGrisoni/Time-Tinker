@@ -4,6 +4,7 @@
      */
     require_once "event.php";
     require_once "FileManager.php";
+    require_once "user.php";
 
     /**
      * Classe statica utilizzata per la gestione degli eventi salvati all'interno del file csv 'events.csv'

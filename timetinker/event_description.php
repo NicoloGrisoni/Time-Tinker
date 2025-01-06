@@ -14,7 +14,7 @@
 
     //controllo presenza e validità parametro src
     if(!isset($_GET["src"]) || empty($_GET["src"])) {
-        header("location: timeline.php");
+        header("location: timeline.php?messaggio=nessun evento selezionato");
         exit;
     }
 ?>
@@ -72,9 +72,9 @@
         <div class="card">
             <img src="<?php echo $srcImg; ?>" alt="Event Image" class="card-img">
             <div class="card-content">
-                <h1 class="event-name"><?php echo htmlspecialchars($name); ?></h1>
-                <p class="event-date"><?php echo htmlspecialchars($date); ?></p>
-                <p class="event-description"><?php echo nl2br(htmlspecialchars($description)); ?></p>
+                <h1 class="event-name"><?php echo $name; ?></h1>
+                <p class="event-date"><?php echo $date; ?></p>
+                <p class="event-description"><?php echo $description; ?></p>
                 
                 <a href="event_modifier.php?src=<?php echo urlencode($srcImg); ?>" class="event-action-button">Manipola la storia</a>
             </div>

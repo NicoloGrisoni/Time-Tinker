@@ -14,7 +14,7 @@
 
     //controllo della presenza e validità del parametro src
     if (!isset($_GET["src"]) || empty($_GET["src"])) {
-        header("location: timeline.php");
+        header("location: timeline.php?messaggio=nessun evento selezionato");
         exit;
     }
 
@@ -24,11 +24,17 @@
     $name = $event->getName();
     $date = $event->getYears();
 
+    if(isset($_GET['prompt']) && isset($_GET['results']) && isset($_GET['src'])) {
+        $result = $_GET['results'];
+        $userRequest = $_GET['prompt'];
+    }
     // Gestione della richiesta al modello Llama
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prompt'])) {
+    else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prompt'])) {
         $ollama_url = "http://localhost:11434/api/generate";
         $prompt = "Quali sarebbero state le conseguenze dell'evento $name se " . $_POST['prompt'] . "? Rispondi in italiano";
         $model = "llama3";
+
+        $userRequest = $_POST['prompt'];
 
         $data = ['prompt' => $prompt, 'model' => $model, 'stream' => false];
 
@@ -46,9 +52,12 @@
         $user = $_SESSION["user"];
         $username = $user->getUsername();
         $eventIndex = EventList::GetEventIndexByName($name);
-        $row = $eventIndex.";"."$result\r\n";
+        $row = $eventIndex."§".$result."§".$_POST['prompt']."\r\n";
 
-        FileManager::InsertContent($username."chronology.csv", $row, true);
+        $filename = $username."chronology.csv";
+
+        FileManager::createFile($filename);
+        FileManager::InsertContent($filename, $row, true);
     }
 ?>
 <!DOCTYPE html>
@@ -60,6 +69,7 @@
     <link rel="stylesheet" href="../css/modifier_results.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -91,12 +101,12 @@
 
     <div class="container">
         <div class="event-details">
-            <h2>Dettagli Evento Selezionato</h2>
+            <h2>Dettagli Evento Selezionato<button class="export-button" onclick="exportPDF()"><i class="fa-solid fa-file-pdf"></i></button></h2>
             <div class="event-info">
-                <img src="<?php echo htmlspecialchars($srcImg); ?>" alt="Immagine evento" class="event-img">
+                <img src="<?php echo $srcImg; ?>" alt="Immagine evento" class="event-img">
                 <div class="event-description">
-                    <p><strong>Nome Evento:</strong> <?php echo htmlspecialchars($name); ?></p>
-                    <p><strong>Data:</strong> <?php echo htmlspecialchars($date); ?></p>
+                    <p><strong>Nome Evento:</strong> <?php echo $name; ?></p>
+                    <p><strong>Data:</strong> <?php echo $date; ?></p>
                 </div>
             </div>
         </div>
@@ -104,16 +114,29 @@
         <div class="form-container">
             <h2>La tua modifica</h2>
             <div class="user-choice">
-                <p><?php echo nl2br(htmlspecialchars($_POST['prompt'])); ?></p>
+                <p><?php echo $userRequest; ?></p>
             </div>
         </div>
 
         <div class="result-container">
             <h3>Risultato della tua modifica:</h3>
-            <p><?php echo nl2br(htmlspecialchars($result)); ?></p>
+            <!-- nl2br server per migliorare l'indentazione del testo -->
+            <p><?php echo nl2br($result); ?></p>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script>
+        // Funzione per esportare la pagina in PDF
+        function exportPDF() {
+            const element = document.getElementsByTagName('body')[0]; // Seleziona il contenuto da esportare
+
+            // Usa html2pdf per convertire il contenuto selezionato in PDF
+            html2pdf()
+                .from(element) // Seleziona il contenuto da includere nel PDF
+                .save('cronologia_eventi.pdf'); // Imposta il nome del file PDF
+        }
+    </script>
 </body>
 </html>

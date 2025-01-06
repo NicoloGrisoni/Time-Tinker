@@ -17,6 +17,7 @@
     <title>Register</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
@@ -59,6 +60,7 @@
     </form> -->
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.js"></script>
 <script>
     function validateForm() {
         var password = document.getElementById("passwordTxt").value;
@@ -71,5 +73,17 @@
 
         return true;
     }
+
+    function showAlert(messaggio) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: messaggio
+            });
+        }
+
+    <?php if (isset($_GET["messaggio"])): ?>
+        showAlert("<?php echo $_GET["messaggio"]; ?>");
+    <?php endif; ?>
 </script>
 </html>

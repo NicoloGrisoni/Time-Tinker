@@ -71,7 +71,7 @@
                     return null;
                 } else {
                     $result = null;
-                    if ($append && count(FileManager::GetRowFromFile($file)) > 0) {
+                    if ($append && count(FileManager::GetRowFromFile($file)) > 0 && FileManager::GetRowFromFile($file)[0] != "") {
                         $resut = file_put_contents("../files/$file", "\r\n$contents", FILE_APPEND);
                     } else {
                         $result = file_put_contents("../files/$file", $contents);
@@ -83,6 +83,16 @@
                         return false;
                     }
                 }
+            }
+        }
+
+        /**
+         * Metodo per creae un file se non esiste
+         * @param string $fileName Stringa che rappresenta il nome del file da creare
+        */
+        public static function createFile($fileName) {
+            if (!file_exists("../files/$fileName")) {
+                file_put_contents("../files/$fileName", "");
             }
         }
     }
