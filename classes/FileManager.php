@@ -87,7 +87,7 @@
         }
 
         /**
-         * Metodo per creae un file se non esiste
+         * Metodo per creare un file se non esiste
          * @param string $fileName Stringa che rappresenta il nome del file da creare
         */
         public static function createFile($fileName) {
