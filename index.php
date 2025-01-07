@@ -27,78 +27,38 @@
     <div class="sec" id="sec">
         <h2>TIME TINKER</h2>
         <p>
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-            Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
-            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem
-            Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable
-            source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular
-            during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-            section 1.10.32.
+            Time Tinker è un progetto dedicato agli eventi storici, dai più remoti fino alle novità più recenti,
+            e offre la possibilità di esplorarli, visualizzarli e persino immaginare nuovi scenari. 
+            Le sue funzionalità principali sono le seguenti: <br><br>
 
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-            1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact
-            original form, accompanied by English versions from the 1914 translation by H. Rackham.<br><br>
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-            Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
-            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem
-            Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable
-            source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular
-            during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-            section 1.10.32.
+            Visualizzazione degli eventi storici, nella quale ogni evento è rappresentato con: <br>
+                1- Nome, come "Seconda Guerra Mondiale" o "Trattato di Versailles"<br>
+                2- Descrizione sintetica <br>
+                3- Anno o intervallo di anni in cui si è svolto<br>
+                4- Immagine rappresentativa <br><br>
+            
+            Viene inserito inoltre a ciascun evento storico un indicatore di importanza:<br>
+                1- Importante, per gli eventi più significativi<br>
+                2- Non importante, per quelli meno rilevanti<br>
+            Gli eventi più importanti sono visualizzati sulla timeline principale del sito, permettendo agli utenti di
+            navigare attraverso i momenti chiave della storia<br><br>
 
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-            1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact
-            original form, accompanied by English versions from the 1914 translation by H. Rackham.
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-            Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
-            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem
-            Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable
-            source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular
-            during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-            section 1.10.32.
+            Ricerca per anno: <br>
+            gli utenti possono cercare eventi storici selezionando un anno specifico e ottenere come
+            risultato i 5 principali eventi accaduti durante esso.<br><br>
 
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-            1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact
-            original form, accompanied by English versions from the 1914 translation by H. Rackham.
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-            Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
-            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem
-            Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable
-            source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular
-            during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-            section 1.10.32.
+            Modifica del corso della storia: <br>
+            una funzionalità innovativa che consente di alterare ipoteticamente gli eventi storici. <br>
+            Ad esempio, selezionando "Seconda Guerra Mondiale" e inserendo un prompt come "E se la
+            Germania avesse vinto?", il sistema genera uno scenario alternativo, mostrando le possibili conseguenze di
+            questa modifica, anche sul presente.<br><br>
 
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-            1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact
-            original form, accompanied by English versions from the 1914 translation by H. Rackham.<br><br>
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-            Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
-            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem
-            Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable
-            source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular
-            during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-            section 1.10.32.
+            Obiettivo del progetto:<br>
+            Time Tinker mira non solo a informare ma anche a coinvolgere gli utenti in un viaggio interattivo nel tempo,
+            stimolando la curiosità, la creatività e il pensiero critico. È un modo unico per esplorare la storia,
+            immaginare nuovi scenari e approfondire la conoscenza degli eventi più significativi del passato.<br><br>
 
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-            1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact
-            original form, accompanied by English versions from the 1914 translation by H. Rackham.
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-            Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
-            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem
-            Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable
-            source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular
-            during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-            section 1.10.32.
-
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections
-            1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact
-            original form, accompanied by English versions from the 1914 translation by H. Rackham. </p>
+            Scopri il potere del tempo e riscrivi la storia con Time Tinker! </p>
     </div>
 
     <script>
