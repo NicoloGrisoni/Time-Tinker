@@ -3,11 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
     //chiamata del metodo querySelectorAll per ottenere tutti i div della linea del tempo
     const inputs = document.querySelectorAll(".input");
     const paras = document.querySelectorAll(".description-flex-container p");
+    //chiamata del metodo getElementById per ottenere l'immagine
     let img = document.getElementById("image");
 
+    //ciclo foreach per scorrere tutti i div della linea del tempo
     inputs.forEach((input, index) => {
+        //aggiunta evento al click di ciascun div
         input.addEventListener("click", function () {
-            // Aggiungi la classe 'active' all'elemento cliccato e al paragrafo corrispondente
+            //rimozione da tutti i div della classe active
             inputs.forEach(el => el.classList.remove("active"));
             paras.forEach(el => el.classList.remove("active"));
 
