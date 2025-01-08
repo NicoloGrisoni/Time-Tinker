@@ -59,6 +59,15 @@
         FileManager::createFile($filename);
         FileManager::InsertContent($filename, $row, true);
     }
+
+    if (!isset($_GET['prompt']) || !isset($_GET['results']) || !isset($_GET['src']))
+    {
+        if(!isset($_POST['prompt']))
+        {
+            header("location: timeline.php?messaggio=parametri mancanti");
+            exit;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="it">
