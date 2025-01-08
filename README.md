@@ -1,5 +1,5 @@
 # 🌟 **Time Tinker**  
-_Time Tinker_ è un progetto dedicato agli appassionati di storia, offrendo una piattaforma unica per esplorare, visualizzare e persino immaginare nuovi scenari sugli eventi storici. 
+_Time Tinker_ è un progetto dedicato agli appassionati di storia, offrendo una piattaforma per esplorare, visualizzare e persino immaginare nuovi scenari sugli eventi storici. 
 
 ---
 
@@ -22,7 +22,7 @@ Gli eventi marcati come **importanti** sono visualizzati sulla **timeline princi
 
 
 ### 🔎 **Ricerca per Anno**
-È possibile cercare eventi storici filtrandoli per anno specifico. Il sistema restituisce i **5 eventi storici principali** accaduti nell'anno selezionato, fornendo un accesso rapido e mirato alle informazioni desiderate.
+È possibile cercare eventi storici filtrandoli per anno specifico. Il sistema restituisce **gli eventi storici principali** accaduti nell'anno selezionato, fornendo un accesso rapido e mirato alle informazioni desiderate.
 
 
 ### 🌀 **Modifica del Corso della Storia**

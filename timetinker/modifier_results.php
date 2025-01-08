@@ -29,7 +29,7 @@
         $userRequest = $_GET['prompt'];
     }
     // Gestione della richiesta al modello Llama
-    else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prompt'])) {
+    else if (isset($_POST['prompt'])) {
         $ollama_url = "http://localhost:11434/api/generate";
         $prompt = "Quali sarebbero state le conseguenze dell'evento $name se " . $_POST['prompt'] . "? Rispondi in italiano";
         $model = "llama3";

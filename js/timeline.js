@@ -1,4 +1,6 @@
+//javascript per l'interattività della timeline della pagina home
 document.addEventListener("DOMContentLoaded", function () {
+    //chiamata del metodo querySelectorAll per ottenere tutti i div della linea del tempo
     const inputs = document.querySelectorAll(".input");
     const paras = document.querySelectorAll(".description-flex-container p");
     let img = document.getElementById("image");

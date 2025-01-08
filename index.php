@@ -45,7 +45,7 @@
 
             Ricerca per anno: <br>
             gli utenti possono cercare eventi storici selezionando un anno specifico e ottenere come
-            risultato i 5 principali eventi accaduti durante esso.<br><br>
+            risultato i principali eventi accaduti durante esso.<br><br>
 
             Modifica del corso della storia: <br>
             una funzionalità innovativa che consente di alterare ipoteticamente gli eventi storici. <br>
