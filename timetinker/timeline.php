@@ -53,7 +53,7 @@
 
     <!-- Cornice per le immagini -->
     <div class="cornice">
-        <img src="" id="image" alt="Event Image">
+        <img src="" id="image">
     </div>
 
     <div class="flex-parent">
